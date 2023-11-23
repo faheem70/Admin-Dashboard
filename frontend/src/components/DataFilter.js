@@ -22,7 +22,7 @@ const DataFilter = () => {
         const fetchData = async () => {
             try {
                 setLoading(true);
-                const apiUrl = `http://localhost:3001/api/data?sector=${sector}&region=${region}&country=${country}&topic=${topic}&endYear=${endYear}&source=${source}&pestle=${pestle}`;
+                const apiUrl = `https://admin-panel-6prv.onrender.com/api/data?sector=${sector}&region=${region}&country=${country}&topic=${topic}&endYear=${endYear}&source=${source}&pestle=${pestle}`;
 
                 const response = await axios.get(apiUrl);
                 console.log('API Response:', response);
