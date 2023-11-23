@@ -9,8 +9,7 @@ app.use(cors());
 app.use(express.json());
 
 mongoose.connect('mongodb://localhost:27017/dashboard', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+
 })
     .then(() => {
         console.log('Connected to MongoDB');
