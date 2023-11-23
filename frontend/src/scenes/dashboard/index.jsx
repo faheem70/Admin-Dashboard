@@ -27,7 +27,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/api/data', {
+        const response = await axios.get('https://admin-panel-6prv.onrender.com/api/data', {
           params: filters,
         });
         setData(response.data);
