@@ -10,7 +10,9 @@ app.use(express.json());
 
 mongoose.connect('mongodb://localhost:27017/dashboard', {
     useNewUrlParser: true,
-
+    useUnifiedTopology: true,
+    connectTimeoutMS: 30000, // Increase the connection timeout
+    socketTimeoutMS: 30000,  // Increase the socket timeout
 })
     .then(() => {
         console.log('Connected to MongoDB');
@@ -46,14 +48,16 @@ const seedDatabase = async () => {
         const rawData = fs.readFileSync('jsondata.json');
         const jsonData = JSON.parse(rawData);
 
-        /// console.log('Raw data:', jsonData);
+        console.log('Starting data seeding...');
 
-        for (const dataItem of jsonData) {
-            const insertedData = await DataModel.create(dataItem);
-            // console.log('Inserted data:', insertedData);
+        // Adjust the batch size based on your needs
+        const batchSize = 100;
+        for (let i = 0; i < jsonData.length; i += batchSize) {
+            const batch = jsonData.slice(i, i + batchSize);
+            await DataModel.insertMany(batch, { timeout: 30000 });
         }
 
-        console.log('Dummy data inserted successfully.');
+        console.log('Data seeding completed successfully.');
     } catch (error) {
         console.error('Error seeding database:', error);
     }
@@ -70,6 +74,7 @@ app.get('/api/data', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+
 // Modify your '/api/data' endpoint to accept query parameters
 app.get('/api/data', async (req, res) => {
     try {
