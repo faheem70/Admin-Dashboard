@@ -8,7 +8,7 @@ const port = 3001;
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect('mongodb://localhost:27017/dashboard', {
+mongoose.connect('mongodb+srv://Adnan:Adnan1234@cluster0.cgrqlhe.mongodb.net/?retryWrites=true&w=majority', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     connectTimeoutMS: 30000, // Increase the connection timeout
